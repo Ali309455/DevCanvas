@@ -1,10 +1,10 @@
 // import path from 'path';
-import { configDotenv } from 'dotenv'; // Loads local .env during development
+import dotenv from "dotenv"; 
 import express from 'express';
 import airoutes from "./airoutes.js"
 const app = express();
 import cors from "cors"
-configDotenv({});
+dotenv.config();
 
 // Configure CORS to allow your deployed React app's URL
 app.use(cors({
@@ -28,6 +28,6 @@ app.get('/ping', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
