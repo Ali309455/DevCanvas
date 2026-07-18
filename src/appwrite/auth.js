@@ -91,8 +91,8 @@ export class AuthService {
     try {
       return await this.account.createOAuth2Session({
         provider: OAuthProvider.Google,
-        success: "http://localhost:5173/",
-        faliure: "http://localhost:5173/",
+        success: "https://dev-canvas-vert.vercel.app/",
+        faliure: "https://dev-canvas-vert.vercel.app/",
       }
       );
     } catch (error) {
