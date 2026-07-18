@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Light Theme Colors (default) ── */
+  --color-background: #F8F7F4;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F3F3F3;
+  --color-border: #111111;
+  --color-primary-text: #111111;
+  --color-secondary-text: #666666;
+  --color-primary-accent: #8B5CF6;
+  --color-soft-accent: #F2EBFF;
+  --color-success: #22C55E;
+  --color-warning: #FFD84D;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+
+  /* ── Legacy aliases (for backward compat) ── */
+  --color-page-white: #F8F7F4;
+  --color-ink-black: #111111;
+  --color-hairline-gray: #e4e4e4;
+  --color-input-border: #b4b4b4;
+  --color-glitch-magenta: #8B5CF6;
+
+  /* ── Typography — Families ── */
+  --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  --font-meta: 'IBM Plex Sans Condensed', sans-serif;
+
+  /* Keep old aliases working */
+  --font-space-grotesk: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ibm-plex: 'IBM Plex Sans Condensed', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
+
+  /* ── Typography — Scale (fluid) ── */
+  --text-caption: clamp(0.8125rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-caption--line-height: 1.38;
+  --text-body: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --text-body--line-height: 1.38;
+  --text-body-lg: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --text-body-lg--line-height: 1.38;
+  --text-subheading: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --text-subheading--line-height: 1.2;
+  --text-display: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);
+  --text-display--line-height: 1.2;
+
+  /* ── Spacing (8pt grid) ── */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+
+  /* ── Border Radius ── */
+  --radius-card: 18px;
+  --radius-button: 12px;
+  --radius-input: 12px;
+  --radius-image: 18px;
+  --radius-pill: 999px;
+
+  /* ── Layout ── */
+  --page-max-width: 1440px;
+  --content-width: 820px;
+  --reading-width: 720px;
+  --sidebar-width: 320px;
+}
+
+/* ── Base styles ── */
+body {
+  font-family: var(--font-inter);
+  background-color: var(--color-background);
+  color: var(--color-primary-text);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* ── Headings use Space Grotesk ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ── Code blocks use JetBrains Mono ── */
+code, kbd, samp, pre, .font-mono {
+  font-family: var(--font-code);
+}
+
+/* ── Meta text uses IBM Plex Sans Condensed ── */
+.text-meta {
+  font-family: var(--font-meta);
+}
+
+/* ── Dark Mode ── */
+.dark body,
+.dark {
+  --color-background: #121212;
+  --color-surface: #1B1B1B;
+  --color-surface-hover: #252525;
+  --color-border: #F4F4F4;
+  --color-primary-text: #F7F7F7;
+  --color-secondary-text: #A0A0A0;
+  --color-primary-accent: #A78BFA;
+  --color-soft-accent: #2A1F45;
+  --color-info: #60A5FA;
+
+  /* Legacy aliases for dark */
+  --color-page-white: #121212;
+  --color-ink-black: #F7F7F7;
+  --color-hairline-gray: #333333;
+  --color-input-border: #555555;
+  --color-glitch-magenta: #A78BFA;
+}
+
+.dark body {
+  background-color: #121212;
+  color: #F7F7F7;
+}
+
+/* ── Smooth theme transitions ── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Disable transition on elements that manage their own */
+.no-theme-transition,
+.no-theme-transition *,
+[data-no-transition] {
+  transition: none !important;
+}
+
+/* ── Article content styles ── */
+.browser-css a {
+  color: var(--color-primary-accent);
+  border-bottom: 2px solid var(--color-primary-accent);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.browser-css a:hover {
+  background-color: var(--color-soft-accent);
+  color: var(--color-primary-text);
+}
+
+.browser-css h1, .browser-css h2, .browser-css h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.browser-css p {
+  margin-bottom: 1em;
+}
+
+.browser-css code {
+  font-family: var(--font-code);
+  background-color: var(--color-soft-accent);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+.browser-css pre {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1em;
+  overflow-x: auto;
+}
+
+.browser-css img,
+.browser-css video,
+.browser-css iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.browser-css table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.browser-css blockquote {
+  border-left: 4px solid var(--color-primary-accent);
+  padding-left: 1em;
+  color: var(--color-secondary-text);
+  font-style: italic;
+}
+
+/* ── Shimmer animation for skeletons ── */
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Focus ring for accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--color-primary-accent);
+  outline-offset: 2px;
+}
+
+/* ── Neo-brutalist shadow utilities ── */
+.shadow-brutal {
+  box-shadow: 4px 4px 0 var(--color-border);
+}
+.shadow-brutal-hover {
+  box-shadow: 6px 6px 0 var(--color-border);
+}
+.shadow-brutal-pressed {
+  box-shadow: 2px 2px 0 var(--color-border);
+}
+.shadow-brutal-accent {
+  box-shadow: 4px 4px 0 var(--color-primary-accent);
+}
+.shadow-brutal-accent-hover {
+  box-shadow: 6px 6px 0 var(--color-primary-accent);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Scrollbar styling ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary-text);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-accent);
+}

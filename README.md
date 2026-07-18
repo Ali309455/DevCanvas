@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dev Canvas
 
 **Dev Canvas is a modern AI-assisted publishing platform built with React, Node.js, Express.js, and Appwrite.** It began as a simple blog project and gradually evolved into a full-stack editorial workspace with rich text authoring, real-time AI writing assistance, reading enhancements, authentication, and a scalable backend architecture.
@@ -264,3 +265,21 @@ I had to consider architecture, security, UX, performance, AI behavior, deployme
 If I were to summarize the project in one sentence:
 
 > **Dev Canvas is a full-stack AI-assisted publishing platform built as a journey from a simple React blog to a production-oriented editorial experience powered by a React frontend, an Express backend, and thoughtful AI-driven author workflows.**
+=======
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+>>>>>>> master
