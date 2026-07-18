@@ -10,7 +10,7 @@ import { PublicLayout, AuthorLayout } from "./layouts";
 // Lazy load pages for token efficiency and performance optimization
 const Home = lazy(() => import("./pages/Home.jsx"));
 const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
-const SignupPage = lazy(() => import("./pages/SignupPage.jsx"));
+const SignupPage = lazy(() => import("./pages/SignUpPage.jsx"));
 const AllPosts = lazy(() => import("./pages/AllPosts.jsx"));
 const AddPost = lazy(() => import("./pages/AddPost.jsx"));
 const EditPost = lazy(() => import("./pages/EditPost.jsx"));
