@@ -1,14 +1,15 @@
 import React from "react";
 import { RTE } from "../index";
 
-const EditorSection = React.memo(({ control, getValues, onEditorInit }) => {
+const EditorSection = React.memo(({ control, getValues, onEditorInit, rules }) => {
   return (
     <section className="w-full">
       <RTE
         label="Content"
         name="content"
         control={control}
-        defaultValue={getValues("content")}
+        rules={rules}
+        defaultValues={getValues("content")}
         onEditorInit={onEditorInit}
       />
     </section>

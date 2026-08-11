@@ -32,6 +32,7 @@ const Input = React.forwardRef(function Input({
       )}
 
       <motion.input
+        {...props}
         type={type}
         id={id}
         ref={ref}
@@ -46,7 +47,6 @@ const Input = React.forwardRef(function Input({
           ${className}
         `}
         placeholder={placeholder}
-        {...props}
         whileTap={{ scale: disabled ? 1 : 0.99 }}
       />
 

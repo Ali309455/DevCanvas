@@ -31,6 +31,7 @@ const Select = ({
       )}
 
       <motion.select
+        {...props}
         id={id}
         ref={ref}
         disabled={disabled}
@@ -43,7 +44,6 @@ const Select = ({
           ${disabled ? 'cursor-not-allowed opacity-50' : ''}
           ${className}
         `}
-        {...props}
         whileTap={{ scale: disabled ? 1 : 0.99 }}
       >
         {options?.map((option) => (

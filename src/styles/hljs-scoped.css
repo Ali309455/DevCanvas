@@ -1,0 +1,16 @@
+/*
+  Scoped highlight.js GitHub Dark theme.
+  All rules from the upstream theme are preserved but constrained
+  to elements inside .browser-css so the dark palette does not
+  bleed into the rest of the application UI.
+*/
+
+@import "highlight.js/styles/github-dark.css" layer(hljs-theme);
+
+@layer hljs-theme {
+  /* Re-scope every .hljs rule to .browser-css */
+  .browser-css .hljs {
+    color: #e6edf3;
+    background: #0d1117;
+  }
+}

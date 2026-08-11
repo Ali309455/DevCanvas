@@ -41,6 +41,7 @@ function Home() {
 
   const heroPost = filteredPosts.length > 0 ? filteredPosts[0] : null;
   const gridPosts = filteredPosts.slice(1);
+  const heroHasImage = heroPost && heroPost.featuredImage && heroPost.featuredImage !== "none";
 
   if (loading) {
     return (
@@ -109,11 +110,17 @@ function Home() {
               to={`/post/${heroPost.slug}`}
               className="md:hidden mt-4 block border-2 border-border bg-surface p-4 rounded-[var(--radius-card)] shadow-brutal focus-visible:outline-none"
             >
-              <img
-                src={dbservice.getFilePreview(heroPost.featuredImage)}
-                alt={heroPost.title}
-                className="w-full aspect-video object-cover border-2 border-border rounded-[var(--radius-image)]"
-              />
+              {heroHasImage ? (
+                <img
+                  src={dbservice.getFilePreview(heroPost.featuredImage)}
+                  alt={heroPost.title}
+                  className="w-full aspect-video object-cover border-2 border-border rounded-[var(--radius-image)]"
+                />
+              ) : (
+                <div className="w-full aspect-video border-2 border-border rounded-[var(--radius-image)] bg-surface-hover flex items-center justify-center">
+                  <span className="text-[10px] font-mono text-secondary-text uppercase tracking-widest">No Image</span>
+                </div>
+              )}
               <span className="mt-4 block text-xs font-mono text-primary-accent uppercase tracking-widest">
                 // Featured: {heroPost.category}
               </span>
@@ -129,11 +136,17 @@ function Home() {
              <Link to={`/post/${heroPost.slug}`} className="block focus-visible:outline-none">
                <div className="absolute inset-0 bg-primary-accent translate-x-3 translate-y-3 border-2 border-border -z-10 group-hover:translate-x-5 group-hover:translate-y-5 transition-transform duration-300 rounded-[var(--radius-card)]"></div>
                <div className="border-2 border-border bg-surface p-6 md:p-10 lg:p-20 rounded-[var(--radius-card)] shadow-brutal transition-all duration-300">
+                 {heroHasImage ? (
                  <img 
                    src={dbservice.getFilePreview(heroPost.featuredImage)} 
                    alt={heroPost.title}
                    className="w-[95%] aspect-video object-cover border-2 border-border rounded-[var(--radius-image)] filter grayscale dark:grayscale-[50%] group-hover:grayscale-0 transition-all duration-500" 
                  />
+                 ) : (
+                   <div className="w-[95%] aspect-video border-2 border-border rounded-[var(--radius-image)] bg-surface-hover flex items-center justify-center">
+                     <span className="text-xs font-mono text-secondary-text uppercase tracking-widest">No Image</span>
+                   </div>
+                 )}
                  <div className="mt-6 flex flex-col gap-2">
                    <span className="text-xs font-mono text-primary-accent uppercase tracking-widest">
                      // Featured: {heroPost.category}

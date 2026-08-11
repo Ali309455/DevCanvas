@@ -11,11 +11,13 @@ export const postSlice = createSlice({
     reducers: {
         setPostsstore: (state, action) => {
             state.posts = action.payload;
+        },
+        clearPostsstore: (state) => {
+            state.posts = [];
         }
-        
     }
 })
 
 
-export const { setPostsstore } = postSlice.actions
+export const { setPostsstore, clearPostsstore } = postSlice.actions
 export default postSlice.reducer

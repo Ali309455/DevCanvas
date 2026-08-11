@@ -2,10 +2,48 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import dbservice from "../appwrite/dbconfig";
-import { Button, ReadingProgressBar, TableOfContents, PostCard } from "../components";
+import { Button, ReadingProgressBar, TableOfContents } from "../components";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
 import { useReadingTime, useScrollProgress, useScrollSpy } from "../hooks"; 
+import hljs from "highlight.js/lib/core";
+import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
+import xml from "highlight.js/lib/languages/xml";
+import css from "highlight.js/lib/languages/css";
+import python from "highlight.js/lib/languages/python";
+import bash from "highlight.js/lib/languages/bash";
+import json from "highlight.js/lib/languages/json";
+import sql from "highlight.js/lib/languages/sql";
+import go from "highlight.js/lib/languages/go";
+import rust from "highlight.js/lib/languages/rust";
+import java from "highlight.js/lib/languages/java";
+import cpp from "highlight.js/lib/languages/cpp";
+import markdown from "highlight.js/lib/languages/markdown";
+import "highlight.js/styles/github-dark.css";
+
+// Register languages with the core-only build
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("js", javascript);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("ts", typescript);
+hljs.registerLanguage("jsx", javascript);
+hljs.registerLanguage("tsx", typescript);
+hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("html", xml);
+hljs.registerLanguage("markup", xml);
+hljs.registerLanguage("css", css);
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("shell", bash);
+hljs.registerLanguage("json", json);
+hljs.registerLanguage("sql", sql);
+hljs.registerLanguage("go", go);
+hljs.registerLanguage("rust", rust);
+hljs.registerLanguage("java", java);
+hljs.registerLanguage("cpp", cpp);
+hljs.registerLanguage("c", cpp);
+hljs.registerLanguage("markdown", markdown);
 import extractHeadings from "../utils/extractHeadings";
 import { injectHeadingIds } from "../utils";
 import ReaderAISidebar from "../components/Sidebar/ReaderAISidebar";
@@ -39,12 +77,10 @@ function Post() {
             setPost(mainPost);
 
             // Fetch related posts filtering by category and omitting current slug
-            console.log("Main Post Category: ", mainPost.category);
             dbservice
               .getRelatedPosts(mainPost.category, mainPost.slug)
               .then((relatedData) => {
                 if (relatedData && relatedData.rows) {
-                  console.log("Related Posts: ", relatedData.rows);
                   setRelatedPosts(relatedData.rows);
                 }
               })
@@ -64,11 +100,23 @@ function Post() {
     }
   }, [slug, navigate]);
 
+  useEffect(() => {
+    if (!post?.content) return;
+    // Defer until React has committed the parsed HTML to the DOM
+    const raf = requestAnimationFrame(() => {
+      hljs.configure({ ignoreUnescapedHTML: true });
+      hljs.highlightAll();
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [post?.content]);
+
   const deletePost = () => {
     dbservice
       .deletePost(post.$id)
       .then((status) => {
-        status && dbservice.deleteFile(post.featuredImage);
+        if (status && post.featuredImage !== "none") {
+          dbservice.deleteFile(post.featuredImage);
+        }
         navigate("/all-posts");
       })
       .catch((error) => {
@@ -93,6 +141,8 @@ function Post() {
         day: "numeric",
       })
     : "Wednesday, July 23, 2025";
+
+  const hasFeaturedImage = post && post.featuredImage && post.featuredImage !== "none";
 
   if (loading) {
     return <ArticleSkeleton />;
@@ -143,11 +193,17 @@ function Post() {
         <div className="w-full max-w-[800px] mx-auto flex flex-col gap-8 md:gap-12 min-w-0">
           <div className="w-full flex flex-col">
             <div className="relative w-full">
-              <img
-                src={dbservice.getFilePreview(post.featuredImage)}
-                alt={post.title}
-                className="w-full aspect-[7/4] object-cover mb-8 md:mb-12 border-2 border-border rounded-[var(--radius-image)] shadow-brutal"
-              />
+              {hasFeaturedImage ? (
+                <img
+                  src={dbservice.getFilePreview(post.featuredImage)}
+                  alt={post.title}
+                  className="w-full aspect-[7/4] object-cover mb-8 md:mb-12 border-2 border-border rounded-[var(--radius-image)] shadow-brutal"
+                />
+              ) : (
+                <div className="w-full aspect-[7/4] mb-8 md:mb-12 border-2 border-border rounded-[var(--radius-image)] shadow-brutal bg-surface-hover flex items-center justify-center">
+                  <span className="text-xs font-mono text-secondary-text uppercase tracking-widest">No Image</span>
+                </div>
+              )}
               {isAuthor && (
                 <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
                   <div className="bg-surface/90 backdrop-blur-md border-2 border-border p-1.5 sm:p-2 rounded-[var(--radius-card)] shadow-brutal flex items-center gap-2 max-w-[calc(100vw-2rem)]">
